@@ -6,23 +6,29 @@ by categorizing them for better organiztion, and reminding users before deadline
 
 Setup Instructions:
 -------------------
-1. Clone the Repository
-    git clone <your-repo-link>
+1. Clone the Repository:
+   
+    git clone (https://github.com/luser-hash/luser-hash-Ostad-Django-assingment-Module-19.git)
     cd taskmanager
 
-2. Create and Activate Virtual Environment
+3. Create and Activate Virtual Environment.
+   
 
-3. Install Dependencies, Make sure your virtual environment is activated, then run:
+4. Install Dependencies, Make sure your virtual environment is activated, then run:
+   
     pip install -r requirements.txt
 
-4. Apply Migrations
+5. Apply Migrations:
+   
     python manage.py makemigrations
     python manage.py migrate
 
-5. Create Superuser (optional)
+6. Create Superuser (optional
+   
     python manage.py createsuperuser
 
-6. Run the Development Server
+7. Run the Development Server:
+   
     http://127.0.0.1:8000/tasks/
     
-7. Access the App
+8. Access the App
