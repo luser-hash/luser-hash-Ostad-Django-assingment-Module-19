@@ -1,0 +1,28 @@
+Problem statement:
+--------------------
+Managing personal tasks manually can lead to missed deadlines. 
+This system helps by managing all tasks in one place, 
+by categorizing them for better organiztion, and reminding users before deadlines. 
+
+Setup Instructions:
+-------------------
+1. Clone the Repository
+    git clone <your-repo-link>
+    cd taskmanager
+
+2. Create and Activate Virtual Environment
+
+3. Install Dependencies, Make sure your virtual environment is activated, then run:
+    pip install -r requirements.txt
+
+4. Apply Migrations
+    python manage.py makemigrations
+    python manage.py migrate
+
+5. Create Superuser (optional)
+    python manage.py createsuperuser
+
+6. Run the Development Server
+    http://127.0.0.1:8000/tasks/
+    
+7. Access the App
