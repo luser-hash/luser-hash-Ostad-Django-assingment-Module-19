@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Your Tasks</h2>
+  <form method="get">
+    <!--Search-->
+    <input
+      type="text"
+      name="search"
+      placeholder="Search tasks..."
+      value="{{ current_search }}"
+    >
+    <!--Category filter-->
+    <select name="category">
+      <option value="">All Categories</option>
+      {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if current_category == cat.id|stringformat:"s" %}selected{% endif %}>
+          {{ cat.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- Status filter -->
+    <select name="status">
+      <option value="">All Status</option>
+      <option value="pending" {% if current_status == 'pending' %}selected{% endif %}>Pending</option>
+      <option value="in_progress" {% if current_status == 'in_progress' %}selected{% endif %}>In Progress</option>
+      <option value="completed" {% if current_status == 'completed' %}selected{% endif %}>Completed</option>
+    </select> 
+
+    <!-- Priority filter -->
+    <select name="priority">
+      <option value="">All Priority</option>
+      <option value="low" {% if current_priority == 'low' %}selected{% endif %}>Low</option>
+      <option value="medium" {% if current_priority == 'medium' %}selected{% endif %}>Medium</option>
+      <option value="high" {% if current_priority == 'high' %}selected{% endif %}>High</option>
+    </select>
+
+    <!-- Due date filter -->
+    <select name="due">
+      <option value="">Any Due Date</option>
+      <option value="today" {% if current_due == 'today' %}selected{% endif %}>Today</option>
+      <option value="week" {% if current_due == 'week' %}selected{% endif %}>This Week</option>
+      <option value="overdue" {% if current_due == 'overdue' %}selected{% endif %}>Overdue</option>
+    </select>
+
+    <!-- Sort filter -->
+    <select name="sort">
+      <option value="newest" {% if current_sort == 'newest' or not current_sort %}selected{% endif %}>Newest first</option>
+      <option value="oldest" {% if current_sort == 'oldest' %}selected{% endif %}>Oldest first</option>
+    </select>
+
+    <button type="submit">Filter</button>
+    <a href="{% url 'task_list' %}">Clear</a>
+  </form>
+
+  {% if tasks %}
+    <ul>
+      {% for task in tasks %}
+        <li>
+          {{ task.title }} - 
+          {{ task.status }} - 
+          {{ task.priority }} - 
+          {{ task.due_at }}
+          <a href="{% url 'task_update' task.pk %}">Edit</a>
+          <a href="{% url 'task_delete' task.pk %}">Delete</a>
+          <a href="{% url 'task_detail' task.pk %}">Detail</a>
+
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No tasks yet.</p>
+  {% endif %}
+
+  {% if page_obj.has_other_pages %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}
+          {% if current_status %}&status={{ current_status }}{% endif %}
+          {% if current_priority %}&priority={{ current_priority }}{% endif %}
+          {% if current_due %}&due={{ current_due }}{% endif %}
+          {% if current_sort %}&sort={{ current_sort }}{% endif %}
+          {% if current_search %}&search={{ current_search }}{% endif %}
+        ">Previous</a>
+      {% endif %}
+
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}
+          {% if current_status %}&status={{ current_status }}{% endif %}
+          {% if current_priority %}&priority={{ current_priority }}{% endif %}
+          {% if current_due %}&due={{ current_due }}{% endif %}
+          {% if current_sort %}&sort={{ current_sort }}{% endif %}
+          {% if current_search %}&search={{ current_search }}{% endif %}
+        ">Next</a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <p><a href="{% url 'task_create' %}">+ New Task</a></p>
+
+{% endblock %}

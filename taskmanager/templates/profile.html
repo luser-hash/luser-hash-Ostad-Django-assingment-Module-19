@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>My Profile</h2>
+
+  <h3>User Info</h3>
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Email:</strong> {{ user.username }}</p>
+  <p><strong>Date joined:</strong> {{ user.date_joined }}</p>
+
+  <h3>Task Summary</h3>
+  <ul>
+    <li>Total tasks: {{ total_tasks }}</li>
+    <li>Completed: {{ completed_tasks }}</li>
+    <li>Pending: {{ pending_tasks }}</li>
+    <li>In Progress: {{ in_progress_tasks }}</li>
+    <li>Overdue: {{ overdue_tasks }}</li>
+  </ul>
+
+  <p><a href="{% url 'task_list' %}">View my tasks</a></p>
+{% endblock %}
